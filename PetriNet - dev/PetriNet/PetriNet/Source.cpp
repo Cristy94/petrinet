@@ -1,4 +1,6 @@
 #include <iostream>
+#include "Position.h"
+#include "IElement.h"
 #include "gui.h"
 
 int main(){
