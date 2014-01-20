@@ -3,11 +3,11 @@
 #include <vector>
 #include "Token.h"
 #include "Position.h"
-#include "IEdit.h"
 using namespace std;
 
 class IElement
 {
+	Position *position;
 
 public:
 	IElement();
@@ -16,6 +16,8 @@ public:
 	virtual void createToken();
 	virtual void createTransition();
 	virtual void createArc();
+	
+
 };
 
 

@@ -83,9 +83,17 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Arc.h" />
     <ClInclude Include="drawable.h" />
+    <ClInclude Include="Edit.h" />
     <ClInclude Include="gui.h" />
+    <ClInclude Include="IEdit.h" />
+    <ClInclude Include="IElement.h" />
+    <ClInclude Include="Place.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="Position.h" />
+    <ClInclude Include="Token.h" />
+    <ClInclude Include="Transition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
