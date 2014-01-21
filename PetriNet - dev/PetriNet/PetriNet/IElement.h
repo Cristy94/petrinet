@@ -1,29 +1,36 @@
 #ifndef __IELEMENT_H_
 #define __IELEMENT_H_
 #include <vector>
+
 #include "Token.h"
-#include "Position.h"
+
 using namespace std;
 
-class IElement
-{
+//Base class for PetriNet elements: Places and Transitions
+class IElement {
 
-protected: 
-	Position *position;
+    protected: 
+	    Point *position;
+        vector<Token*> *tokens;	
 
-public:
-	IElement()
-	{
-		position = new Position();
-	}
+    public:
+	    IElement()
+	    {
+		    position = new Point();
+	    }
 
-	virtual void setNumberOfTokens(int number);
+	   	void setNumberOfTokens(int number)
+	    {
+		    tokens->resize(number);
+	    }
 	
-	void setPosition(int x, int y)
-	{
-		position->setX(x);
-		position->setY(y);
-	}
+        //Sets top-left position of the element
+	    void setPosition(int x, int y)
+	    {
+		    position->setX(x);
+		    position->setY(y);
+	    }
+
 };
 
 

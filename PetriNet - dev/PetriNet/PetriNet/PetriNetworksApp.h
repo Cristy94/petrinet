@@ -6,55 +6,66 @@
 #include "Place.h"
 #include "Transition.h"
 
-class PetriNetworksApp : IEdit
-{
-	vector<Arcs*> *arcs;
-	vector<Place*> *places;
-	vector<Transition*> *transitions;
+class PetriNetworksApp {
+    private:
+	    vector<Arcs*> *arcs;
+	    vector<Place*> *places;
+	    vector<Transition*> *transitions;
 
-	int step_count;
+	    int step_count;
 
-public:
-	PetriNetworksApp() 
-	{
-		arcs = new vector<Arcs*>();
-		places = new vector<Place*>();
-		transitions = new vector<Transition*>();
-		step_count = 0;
-	}
+    public:
+	    PetriNetworksApp() 
+	    {
+		    arcs = new vector<Arcs*>();
+		    places = new vector<Place*>();
+		    transitions = new vector<Transition*>();
+		    step_count = 0;
+	    }
 
-	void init()
-	{
-		arcs = new vector<Arcs*>();
-		places = new vector<Place*>();
-		transitions = new vector<Transition*>();
-		step_count = 0;
-	}
+	    void init()
+	    {
+		    arcs = new vector<Arcs*>();
+		    places = new vector<Place*>();
+		    transitions = new vector<Transition*>();
+		    step_count = 0;
+	    }
 
-	void addPlace(Place *place)
-	{
-		this->places->push_back(place);
-	}
+        //Creates and adds a new place to the network
+        //Returns the index
+	    int addPlace(int x, int y)
+	    {
+            Place *newPlace = new Place(new Point(x,y));
+		    places->push_back(newPlace);
 
-	void addTransition(Transition *transition)
-	{
-		this->transitions->push_back(transition);
-	}
+            return places->size() - 1;
+	    }
 
-	void addArc(Arcs *arc)
-	{
-		this->arcs->push_back(arc);
-	}
+        //Creates and adds a new transition to the network
+        //Returns the index
+	    int addTransition(int x, int y)
+	    {
+            Transition *newTransition = new Transition(new Point(x,y));
+		    transitions->push_back(newTransition);
 
-	void next_step()
-	{
-		step_count++;
-	}
+            return transitions->size() - 1;
+	    }
 
-	void start_app();
+
+	    void addPlaceTransitionArc(unsigned int placeIdx, unsigned int transitionIdx)
+	    {            
+            Arcs *newArc = new Arcs(places->at(placeIdx), transitions->at(transitionIdx));
+            arcs->push_back(newArc);
+	    }
+
+	    void next_step()
+	    {
+		    step_count++;
+	    }
+
+	    void start_app();
 	
-	void stop_app();
-}
-;
+	    void stop_app();
+};
 
 #endif

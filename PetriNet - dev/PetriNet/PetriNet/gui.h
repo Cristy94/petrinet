@@ -5,6 +5,7 @@
 #include <string>
 
 #include "drawable.h"
+#include "PetriNetworksApp.h"
 
 
 //Manages the creation, display and editing of FLTK elements
@@ -16,6 +17,7 @@ class GUI {
 		Drawable *canvas;
         Fl_Button *addButton;
         Fl_Group *sidebar;
+        PetriNetworksApp *PetriNet;
 
         //Example of a static facade callback
 		static void exampleCallback( Fl_Widget* o, void* data ) {
@@ -30,8 +32,15 @@ class GUI {
 
 	public:
 
+        //This GUI is specific for the PetriNet
 		GUI(){
+            
+            PetriNet =  new PetriNetworksApp();
 
+            //Add some elements, just for testing
+            int p1 = PetriNet->addPlace(200,200);
+            int t1 = PetriNet->addTransition(300,200);
+            PetriNet->addPlaceTransitionArc(p1, t1);
 		}
 
         //Init function to start FLTK
@@ -43,9 +52,9 @@ class GUI {
 
                 //Add point to polygon
                 Point sidebarPos(0,0);
-                sidebar = new  Fl_Group (sidebarPos.x,sidebarPos.y,300,600);
+                sidebar = new  Fl_Group (sidebarPos.getX(),sidebarPos.getY(),300,600);
                     
-    				addButton = new Fl_Button (sidebarPos.x+ 10, sidebarPos.y + 10, 280, 50, "&Hello world!" );
+    				addButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "&Hello world!" );
                
                     sidebar->end();
 			win->end();
