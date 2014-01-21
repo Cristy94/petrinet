@@ -56,5 +56,8 @@
     <ClInclude Include="Edit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PetriNetworksApp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

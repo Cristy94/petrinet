@@ -23,13 +23,25 @@ public:
 		this->y = newY;
 	}
 
-	int getX();
+	int getX()
+	{
+		return this->x;
+	}
 
-	int getY();
+	int getY()
+	{
+		return this->y;
+	}
 
-	int setX();
+	void setX(int value)
+	{
+		this->x = value;
+	}
 
-	int setY();
+	void setY(int value)
+	{
+		this->y = value;
+	}
 };
 
 #endif

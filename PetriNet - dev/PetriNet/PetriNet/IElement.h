@@ -7,17 +7,23 @@ using namespace std;
 
 class IElement
 {
+
+protected: 
 	Position *position;
 
 public:
-	IElement();
+	IElement()
+	{
+		position = new Position();
+	}
 
-	virtual void createPlace();
-	virtual void createToken();
-	virtual void createTransition();
-	virtual void createArc();
+	virtual void setNumberOfTokens(int number);
 	
-
+	void setPosition(int x, int y)
+	{
+		position->setX(x);
+		position->setY(y);
+	}
 };
 
 

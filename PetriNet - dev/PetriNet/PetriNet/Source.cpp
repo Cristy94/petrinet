@@ -6,6 +6,8 @@
 #include "Place.h"
 #include "Arc.h"
 #include "IEdit.h"
+#include "Edit.h"
+#include "PetriNetworksApp.h"
 
 int main(){
 

@@ -9,15 +9,13 @@
 
 using namespace std;
 
-class Transition
+class Transition : IElement
 {
-	Position *position;
 	vector<Token*> *tokens;
 	vector<Arcs*> *in_arcs;
 	vector<Arcs*> *out_arcs;
 	IElement *source;
 	IElement *destination;
-	int step_count;
 	
 
 public:
@@ -35,16 +33,16 @@ public:
 	{
 		this->source = source;
 		this->destination = destination;
-		this->step_count = 0;
 		this->position = new Position();
 		this->tokens = new vector<Token*>();
 		this->in_arcs = new vector<Arcs*>();
 		this->out_arcs = new vector<Arcs*>();
 	}
 
-	void next_step()
+
+	void setNumberOfTokens(int number)
 	{
-		step_count++;
+		tokens->resize(number);
 	}
 };
 

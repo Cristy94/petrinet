@@ -89,6 +89,7 @@
     <ClInclude Include="gui.h" />
     <ClInclude Include="IEdit.h" />
     <ClInclude Include="IElement.h" />
+    <ClInclude Include="PetriNetworksApp.h" />
     <ClInclude Include="Place.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="Position.h" />

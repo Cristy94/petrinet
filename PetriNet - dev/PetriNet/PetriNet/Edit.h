@@ -4,8 +4,9 @@
 
 class Edit: IEdit
 {
-	void editPosition(IElement *element)
+	void editNumberOfTokens(IElement *element, int numberOfTokens)
 	{
+		element->setNumberOfTokens(numberOfTokens);
 	}
 };
 

@@ -2,7 +2,7 @@
 #define _ARCS_H_
 #include "IElement.h"
 
-class Arcs 
+class Arcs : IElement
 {
 	IElement *source;
 	IElement *destination;
@@ -19,6 +19,10 @@ public:
 		this->source = source;
 		this->destination = destination;
 	}
+	
+	void setNumberOfTokens(int number) {}
+
+
 };
 
 

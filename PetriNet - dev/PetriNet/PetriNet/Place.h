@@ -6,9 +6,8 @@
 #include "IElement.h"
 #include "Arc.h"
 
-class Place
+class Place : IElement
 {
-	Position *position;
 	vector<Token*> *tokens;
 	vector<Arcs*> *in_arcs;
 	vector<Arcs*> *out_arcs;
@@ -27,6 +26,11 @@ public:
 		this->position = position;
 		this->in_arcs = new vector<Arcs*>();
 		this->out_arcs = new vector<Arcs*>();
+	}
+
+	void setNumberOfTokens(int number)
+	{
+		tokens->resize(number);
 	}
 };
 
