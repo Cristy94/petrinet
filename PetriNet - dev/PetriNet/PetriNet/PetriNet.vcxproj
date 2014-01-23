@@ -90,6 +90,7 @@
     <ClInclude Include="PetriNetworksApp.h" />
     <ClInclude Include="Place.h" />
     <ClInclude Include="point.h" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="Transition.h" />
   </ItemGroup>
