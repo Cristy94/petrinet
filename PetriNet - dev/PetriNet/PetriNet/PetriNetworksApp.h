@@ -39,26 +39,27 @@ class PetriNetworksApp {
         //Returns the index
 	    int addPlace(int x, int y)
 	    {
-			if(x >= 0 && y >= 0)
-			{
-				Place *newPlace = new Place(new Point(x,y));
-				places->push_back(newPlace);
+			if(x < 0 || y < 0)
+			    throw std::string("Invalid coordinates");
 
-				return places->size() - 1;
-			}
+			Place *newPlace = new Place(new Point(x,y));
+			places->push_back(newPlace);
+
+			return places->size() - 1;
 	    }
 
         //Creates and adds a new transition to the network
         //Returns the index
 	    int addTransition(int x, int y)
 	    {
-			if(x >= 0 && y >= 0)
-			{
-				Transition *newTransition = new Transition(new Point(x,y));
-				transitions->push_back(newTransition);
+			if(x < 0 || y < 0)
+			    throw std::string("Invalid coordinates");
+                
+		    Transition *newTransition = new Transition(new Point(x,y));
+		    transitions->push_back(newTransition);
 
-				return transitions->size() - 1;
-			}
+		    return transitions->size() - 1;
+			
 	    }
 
 
