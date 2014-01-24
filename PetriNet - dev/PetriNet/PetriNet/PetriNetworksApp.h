@@ -15,26 +15,11 @@ class PetriNetworksApp {
 	    int step_count;
 
     public:
-	    PetriNetworksApp() 
-	    {
-		    arcs = new vector<Arcs*>();
-		    places = new vector<Place*>();
-		    transitions = new vector<Transition*>();
-		    step_count = 0;
-	    }
-
-	    void init()
-	    {
-		    arcs = new vector<Arcs*>();
-		    places = new vector<Place*>();
-		    transitions = new vector<Transition*>();
-		    step_count = 0;
-	    }
+	    PetriNetworksApp();
 
 		// Allow serialization to access non-public data members.
 		friend class Serialization;
-
-
+        
         //Creates and adds a new place to the network
         //Returns the index
 	    int addPlace(int x, int y)
@@ -70,11 +55,6 @@ class PetriNetworksApp {
 				Arcs *newArc = new Arcs(places->at(placeIdx), transitions->at(transitionIdx));
 				arcs->push_back(newArc);
 			}
-	    }
-
-	    void next_step()
-	    {
-		    step_count++;
 	    }
 
 	    void start_app();
@@ -117,6 +97,8 @@ class PetriNetworksApp {
 		{
 			this->transitions = transitions;
 		}
+
+        int advanceSimulation();
 };
 
 #endif

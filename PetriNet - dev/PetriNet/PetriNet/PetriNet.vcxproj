@@ -80,6 +80,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="drawable.cpp" />
+    <ClCompile Include="gui.cpp" />
+    <ClCompile Include="PetriNetworksApp.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
