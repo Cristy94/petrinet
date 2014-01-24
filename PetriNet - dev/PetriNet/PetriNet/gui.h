@@ -19,6 +19,7 @@ class GUI {
         Fl_Button *addTransitionButton;
         Fl_Button *addPlaceButton;
         Fl_Button *addArcButton;
+        Fl_Button *advanceSimulationButton;
 
         Fl_Group *sidebar;
         PetriNetworksApp *PetriNet;
@@ -30,8 +31,16 @@ class GUI {
         
         //Non-static real callback
 		void addTransition(){
-            //Ask user for coordinates, convert them to int
-            std::string answ = fl_input("Position? (space separated)", "100 100");
+             //Ask user for coordinates, convert them to int
+            const char *result = fl_input("Position? (space separated)", "100 100");
+            
+            //If user clicks cancel           
+            if(result == NULL)
+                return;
+
+            std::string answ = result;
+            
+
             int x = atoi( answ.substr(0, answ.find(" ")).c_str() );
             int y = atoi( answ.substr(answ.find(" ")).c_str() );
 
@@ -46,13 +55,26 @@ class GUI {
         
         //Non-static real callback
 		void addPlace(){
-            //Ask user for coordinates, convert them to int
-            std::string answ = fl_input("Position? (space separated)", "100 100");
+             //Ask user for coordinates, convert them to int
+            const char *result = fl_input("Position? (space separated)", "100 100");
+            
+            //If user clicks cancel           
+            if(result == NULL)
+                return;
+
+            std::string answ = result;
+
             int x = atoi( answ.substr(0, answ.find(" ")).c_str() );
             int y = atoi( answ.substr(answ.find(" ")).c_str() );
 
             PetriNet->addPlace(x, y);
         }
+
+        //Calls PetriNets advanceSimulation method
+		static void advanceSimulationCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->PetriNet->advanceSimulation();
+		}
+        
 
 
 	public:

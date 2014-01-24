@@ -9,6 +9,7 @@ GUI::GUI(){
     int p1 = PetriNet->addPlace(200,200);
     int t1 = PetriNet->addTransition(300,200);
     PetriNet->addPlaceTransitionArc(p1, t1);
+    (*(PetriNet->arcs->begin()))->source->setNumberOfTokens(10);
 }
 
 //Init function to start FLTK
@@ -24,13 +25,15 @@ void GUI::init(){
                     
     		addPlaceButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "Add new &place!" );
             addTransitionButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 70, 280, 50, "Add new &transition!" );
-               
+            advanceSimulationButton =  new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 130, 280, 50, "Advance &simulation!" );
+
             sidebar->end();
 	win->end();
 
     //Bind callbacks
-    addTransitionButton->callback(addPlaceCallback, this);
-	addPlaceButton->callback(addTransitionCallback, this);
+    addPlaceButton->callback(addPlaceCallback, this);
+	addTransitionButton->callback(addTransitionCallback, this);
+    advanceSimulationButton->callback(advanceSimulationCallback, this);
 
 
     //Styling

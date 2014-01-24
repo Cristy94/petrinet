@@ -10,6 +10,14 @@ public:
 	{
 		return isActive;
 	}
+
+    void deactivate(){
+        isActive = 0;
+    }
+
+    void activate(){
+        isActive = 1;
+    }
 };
 
 #endif

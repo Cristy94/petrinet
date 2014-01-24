@@ -3,10 +3,12 @@
 #include "IElement.h"
 
 class Arcs {
+
+public:
+
 	IElement *source;
 	IElement *destination;
 
-public:
 	Arcs()
 	{
 		this->source = NULL;
