@@ -15,19 +15,44 @@ class GUI {
         //GUI elements
         Fl_Window *win;
 		Drawable *canvas;
-        Fl_Button *addButton;
+
+        Fl_Button *addTransitionButton;
+        Fl_Button *addPlaceButton;
+        Fl_Button *addArcButton;
+
         Fl_Group *sidebar;
         PetriNetworksApp *PetriNet;
 
-        //Example of a static facade callback
-		static void exampleCallback( Fl_Widget* o, void* data ) {
-			((GUI*) data)->example();
+        //Adds a new transition to the network
+		static void addTransitionCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->addTransition();
 		}
         
         //Non-static real callback
-		void example(){
-            
+		void addTransition(){
+            //Ask user for coordinates, convert them to int
+            std::string answ = fl_input("Position? (space separated)", "100 100");
+            int x = atoi( answ.substr(0, answ.find(" ")).c_str() );
+            int y = atoi( answ.substr(answ.find(" ")).c_str() );
+
+            PetriNet->addTransition(x, y);
+        }
+
+
+        //Adds a new place to the network
+		static void addPlaceCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->addPlace();
 		}
+        
+        //Non-static real callback
+		void addPlace(){
+            //Ask user for coordinates, convert them to int
+            std::string answ = fl_input("Position? (space separated)", "100 100");
+            int x = atoi( answ.substr(0, answ.find(" ")).c_str() );
+            int y = atoi( answ.substr(answ.find(" ")).c_str() );
+
+            PetriNet->addPlace(x, y);
+        }
 
 
 	public:
@@ -54,19 +79,21 @@ class GUI {
                 Point sidebarPos(0,0);
                 sidebar = new  Fl_Group (sidebarPos.getX(),sidebarPos.getY(),300,600);
                     
-    				addButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "&Hello world!" );
+    				addPlaceButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "Add new &place!" );
+                    addTransitionButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 70, 280, 50, "Add new &transition!" );
                
                     sidebar->end();
 			win->end();
 
             //Bind callbacks
-			addButton->callback(  exampleCallback, this);
+            addTransitionButton->callback(addPlaceCallback, this);
+			addPlaceButton->callback(addTransitionCallback, this);
 
 
             //Styling
-            canvas->box(FL_PLASTIC_DOWN_BOX);
+            canvas->box(FL_DOWN_BOX);
             sidebar->box(FL_UP_BOX);
-			canvas->color(FL_RED);
+			canvas->color(fl_rgb_color(150,190,235));
             win->resizable(canvas);
 
 			//Buffer window
