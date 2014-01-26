@@ -32,6 +32,11 @@ class IElement {
 		    position->setY(y);
 	    }
 
+		Point *getPosition()
+		{
+			return this->position;
+		}
+
         bool hasTokens(){
             return tokens->size() > 0;
         }

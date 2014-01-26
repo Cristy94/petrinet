@@ -1,32 +1,26 @@
 #ifndef __SERIALIZATION_H_
 #define __SERIALIZATION_H_
 #include "PetriNetworksApp.h"
-#include <fstream>
-#include <file/text_iarchive.hpp>
-#include <file/text_oarchive.hpp>
+#include <iostream>
+#include <cstdio>
+#include <string>
 
 
 class Serialization : PetriNetworksApp
 {
-	const char* fileName = "PetriNetworks.txt";
 
+	Serialization(){
+		freopen("PetriNetworks.txt", "r", stdin);
+		freopen("PetriNetworks.txt", "w", stdout);
+	}
 	void saveNetwork() 
 	{
-		ofstream ofs(fileName);
-		text_oarchive ar(ofs);
-
-		// save data
-		ar & getArcs & getTransitions & getPlaces;
+		cout << "P " << getArcs()->size() << " T " << getTransitions()->size() << " A " << getArcs()->size() << endl;
+		
 	}
 
 	void loadNetwork()
 	{
-		ifstream ifs(fileName);
-		text_oarchive ar(ifs);
-	
-		// load data
-		ar & setArcs & setTransitions & setPlaces;
 	}
 };
-
 #endif
