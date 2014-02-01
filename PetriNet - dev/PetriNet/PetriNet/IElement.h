@@ -10,7 +10,7 @@ using namespace std;
 //Base class for PetriNet elements: Places and Transitions
 class IElement {
 
-    protected: 
+    public: 
 	    Point *position;
         vector<Token*> *tokens;	
 

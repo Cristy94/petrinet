@@ -18,6 +18,11 @@ public:
     void activate(){
         isActive = 1;
     }
+
+	void setState(bool state)
+	{
+		isActive = state;
+	}
 };
 
 #endif
