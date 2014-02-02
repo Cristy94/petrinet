@@ -1,6 +1,7 @@
 #ifndef __PLACE_H_
 #define __PLACE_H_
 
+#define mRADIUS 70
 
 #include <vector> 
 
@@ -10,6 +11,9 @@
 class Place : public IElement {
 
     public:
+
+        static const int radius = mRADIUS;
+
 	    Place()
 	    {
 		    position = NULL;
@@ -21,6 +25,17 @@ class Place : public IElement {
 		    position = initialPosition;
             tokens   = new vector<Token*>();
 	    }
+
+
+        Point *centerPosition(){
+
+            Point *p = new Point();
+
+            p->setX(position->getX() + mRADIUS/2);
+            p->setY(position->getY() + mRADIUS/2);
+
+            return p;
+        }
 
 };
 

@@ -15,9 +15,9 @@ GUI::GUI(){
 //Init function to start FLTK
 void GUI::init(){
 			
-	win = new Fl_Window ( 800,600,"Polygons" );
+	win = new Fl_Window ( WINDOW_WIDTH, WINDOW_HEIGHT, "Polygons" );
 	win->begin();
-		canvas = new Drawable (300, 0, 500, 600);
+		canvas = new Drawable (PetriNet, 300, 0, WINDOW_WIDTH - 300, 600);
 
         //Add point to polygon
         Point sidebarPos(0,0);
@@ -39,7 +39,7 @@ void GUI::init(){
     //Styling
     canvas->box(FL_DOWN_BOX);
     sidebar->box(FL_UP_BOX);
-	canvas->color(fl_rgb_color(150,190,235));
+	canvas->color(FL_WHITE);
     win->resizable(canvas);
 
 	//Buffer window

@@ -1,6 +1,9 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 
+#define WINDOW_WIDTH 900
+#define WINDOW_HEIGHT 600
+
 #include <cstdlib>
 #include <string>
 
@@ -45,6 +48,7 @@ class GUI {
             int y = atoi( answ.substr(answ.find(" ")).c_str() );
 
             PetriNet->addTransition(x, y);
+            canvas->redraw();
         }
 
 
@@ -68,12 +72,18 @@ class GUI {
             int y = atoi( answ.substr(answ.find(" ")).c_str() );
 
             PetriNet->addPlace(x, y);
+            canvas->redraw();
         }
 
         //Calls PetriNets advanceSimulation method
 		static void advanceSimulationCallback( Fl_Widget* o, void* data ) {
-			((GUI*) data)->PetriNet->advanceSimulation();
+			((GUI*) data)->advanceSimulation();
 		}
+
+        void advanceSimulation(){
+            PetriNet->advanceSimulation();
+            canvas->redraw();
+        }
         
 
 

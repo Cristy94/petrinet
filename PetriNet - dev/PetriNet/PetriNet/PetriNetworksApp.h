@@ -7,7 +7,7 @@
 #include "Transition.h"
 
 class PetriNetworksApp {
-    public:
+    private:
 	    vector<Arcs*> *arcs;
 	    vector<Place*> *places;
 	    vector<Transition*> *transitions;
@@ -17,8 +17,10 @@ class PetriNetworksApp {
     public:
 	    PetriNetworksApp();
 
-		// Allow serialization to access non-public data members.
+		// Allow required classes to access non-public data members.
 		friend class Serialization;
+        friend class GUI;
+        friend class Drawable;
         
         //Creates and adds a new place to the network
         //Returns the index

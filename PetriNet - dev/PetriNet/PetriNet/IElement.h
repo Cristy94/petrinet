@@ -71,6 +71,7 @@ class IElement {
                             
         }
 
+        virtual Point* centerPosition() = 0;
 };
 
 

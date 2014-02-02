@@ -11,6 +11,7 @@ class Point {
     public:
 
         Point(int xx = 0, int yy = 0) : x(xx), y(yy){};
+        Point(Point *old) : x(old->x), y(old->y) {}
 
 	    void set(int newX, int newY)
 	    {

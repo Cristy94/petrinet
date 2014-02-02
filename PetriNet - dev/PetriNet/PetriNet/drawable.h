@@ -12,17 +12,20 @@
 #include <FL/Fl_Browser.H>
 #include <FL/fl_ask.H>
 
-#include "point.h"
+#include "PetriNetworksApp.h"
 
 
 
 class Drawable : public Fl_Box{
 
 	private:
-		
+        PetriNetworksApp* PetriNet;
+
 	public:
-		Drawable(int X,int Y,int W,int H,const char*L=0): Fl_Box(X,Y,W,H,L){
-		}
+
+        //Constructor. We also need a pointer to the network
+		Drawable(PetriNetworksApp *Network, int X,int Y,int W,int H,const char*L=0)
+                    :Fl_Box(X,Y,W,H,L), PetriNet(Network){}
 
 		void draw();
 };
