@@ -17,6 +17,7 @@ public:
 	{
 		cout << getPlaces()->size() << " " << getTransitions()->size() << " " << getArcs()->size() << endl;	// places, transitions, arcs
 		
+
 		// serialize position and tokens of every place
 		for(int i = 0; i < getPlaces()->size(); ++i)
 		{
@@ -43,7 +44,7 @@ public:
 			cout << transitions->at(i)->getTokenCount() << endl;
 
 			// tokens state for each transition
-			for(int j = 0; j < transitions->at(i)->getTokenCount(); ++i)
+			for(int j = 0; j < transitions->at(i)->getTokenCount(); ++j)
 			{
 				cout << transitions->at(i)->tokens->at(j)->getState() << endl;
 			}
@@ -63,12 +64,12 @@ public:
 			cout << arcs->at(i)->source->getTokenCount() << endl;
 
 			// tokens state for each arc(source and destination)	
-			for(int j = 0; j < arcs->at(i)->source->getTokenCount(); ++i)
+			for(int j = 0; j < arcs->at(i)->source->getTokenCount(); ++j)
 			{
 				cout << arcs->at(i)->source->tokens->at(j)->getState() << endl;
 			}
 
-			for(int j = 0; j < arcs->at(i)->destination->getTokenCount(); ++i)
+			for(int j = 0; j < arcs->at(i)->destination->getTokenCount(); ++j)
 			{
 				cout << arcs->at(i)->destination->tokens->at(j)->getState() << endl;
 			}
@@ -80,7 +81,7 @@ public:
 		int arcsSize, placesSize, transitionsSize, x, y, state, tokensCount, xSource, ySource, xDestination, yDestination, tokensSource, tokensDestination;
 		bool stateSource, stateDestination;
 
-		cin >> arcsSize >> placesSize >> transitionsSize;
+		cin >> placesSize >> transitionsSize >> arcsSize;
 
 		for(int i = 0; i < placesSize; ++i)
 		{
@@ -109,7 +110,7 @@ public:
 			transitions->at(i)->position->setY(y);
 
 			// tokens state for each transitions
-			for(int j = 0; j < tokensCount; ++i)
+			for(int j = 0; j < tokensCount; ++j)
 			{
 				cin >> state;
 				transitions->at(i)->tokens->at(j)->setState(state);
@@ -129,15 +130,18 @@ public:
 			arcs->at(i)->destination->position->setX(xDestination);
 			arcs->at(i)->destination->position->setY(yDestination);
 
+			arcs->at(i)->destination->tokens->resize(tokensDestination);
+			arcs->at(i)->source->tokens->resize(tokensSource);
+
 			// tokens state for each arc(source and destination)	
-			for(int j = 0; j < tokensSource; ++i)
+			for(int j = 0; j < tokensSource; ++j)
 			{
 				cin >> stateSource;
 
 				arcs->at(i)->source->tokens->at(j)->setState(stateSource);
 			}
 
-			for(int j = 0; j < tokensDestination; ++i)
+			for(int j = 0; j < tokensDestination; ++j)
 			{
 				cin >> stateDestination;
 
