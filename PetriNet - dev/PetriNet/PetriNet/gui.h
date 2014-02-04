@@ -223,6 +223,7 @@ class GUI {
 
         void loadNetwork(){
             PetriNet->loadNetwork();
+            canvas->redraw();
         }
 
 	public:

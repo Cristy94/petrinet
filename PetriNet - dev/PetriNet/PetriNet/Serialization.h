@@ -44,42 +44,51 @@ public:
 		{
 			bool isPlaceSource = false;
 			bool isPlaceDestination = false;
+            int idx  = 0;
 			for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it)
 			{
 				if(*it == arcs->at(i)->source)
 				{
-					cout << "P " << i << endl;
+					cout << "P " << idx << endl;
 					isPlaceSource = true;
 				}
+
+                ++idx;
 			}
 			if(!isPlaceSource)
 			{
+                idx = 0;
 				for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it)
 				{
 					if(*it == arcs->at(i)->source)
 					{
-						cout << "T " << i << endl;
+						cout << "T " << idx << endl;
 					}
+                    ++idx;
 				}
 			}
 
+            idx = 0;
 			for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it)
 			{
 				if(*it == arcs->at(i)->destination)
 				{
-					cout << "P " << i << endl;
+					cout << "P " << idx << endl;
 					isPlaceDestination = true;
 				}
+                ++idx;
 			}
 			if(!isPlaceDestination)
 			{
+                idx = 0;
 				for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it)
 				{
 					if(*it == arcs->at(i)->destination)
 					{
-						cout << "T " << i << endl;
+						cout << "T " << idx << endl;
 					}
-				}
+                    idx++;
+				}                
 			}
 
 			cout << arcs->at(i)->destination->getTokenCount() << endl;
@@ -96,9 +105,9 @@ public:
 
 		cin >> placesSize >> transitionsSize >> arcsSize;
 
-		places->resize(placesSize+1);
-		transitions->resize(transitionsSize+1);
-		arcs->resize(arcsSize+1);
+        places->clear();
+		transitions->clear();
+		arcs->clear();
 
 		for(int i = 0; i < placesSize; ++i)
 		{
@@ -127,6 +136,7 @@ public:
 		{
 			char sourceType, destinationType;
 			int indexSource, indexDestination;
+            IElement *src, *dest;
 
 			cin >> sourceType;
 			cin >> indexSource;
@@ -137,20 +147,16 @@ public:
 
 			// position
 			if(sourceType == 'P')
-				arcs->at(i)->source = places->at(indexSource);
+				src = places->at(indexSource);
 			else
-				arcs->at(i)->source = transitions->at(indexSource);
+				src = transitions->at(indexSource);
 
 			if(destinationType == 'P')
-				arcs->at(i)->destination = places->at(indexDestination);
+				dest = places->at(indexDestination);
 			else
-				arcs->at(i)->destination = transitions->at(indexDestination);
+				dest = transitions->at(indexDestination);
 
-			for(int j = 0; j < tokensDestination; ++j)
-				arcs->at(i)->destination->tokens->push_back(new Token());
-
-			for(int j = 0; j < tokensSource; ++j)
-				arcs->at(i)->source->tokens->push_back(new Token());
+            addArc(src, dest);
 		}
 	}
 };
