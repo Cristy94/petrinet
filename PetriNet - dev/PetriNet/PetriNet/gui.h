@@ -20,6 +20,7 @@ class GUI {
 		Drawable *canvas;
 
         Fl_Button *addTransitionButton, *addPlaceButton, *addArcButton;
+        Fl_Button *removeArcButton;
         Fl_Button *advanceSimulationButton;
         Fl_Button *saveNetworkButton, *loadNetworkButton;
 
@@ -73,6 +74,71 @@ class GUI {
             PetriNet->addPlace(x, y);
             canvas->redraw();
         }
+
+        //Adds a arc between selected elements
+		static void addArcCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->addArc();
+		}
+        
+        //Non-static real callback
+		void addArc(){
+
+            try {
+                
+                if(PetriNet->selected.size() < 2)
+                    throw std::string("Invalid elements selected");
+                
+                //Bipartite arcs
+                bool ok = 0;
+
+                try {
+                    //Place -> Transition
+                    if(Place* a = dynamic_cast< Place* >(PetriNet->selected.at(0)))
+                        if(Transition* b = dynamic_cast< Transition* >(PetriNet->selected.at(1)))
+                            ok = 1;
+
+                    //Transition -> Place
+                    if(Place* a = dynamic_cast< Place* >(PetriNet->selected.at(1)))
+                        if(Transition* b = dynamic_cast< Transition* >(PetriNet->selected.at(0)))
+                            ok = 1;
+                }
+                catch (std::exception e){}
+
+                if(!ok){
+                    throw std::string("Invalid elements selected");
+                }
+
+                PetriNet->addArc(PetriNet->selected.at(0), PetriNet->selected.at(1));
+                
+                canvas->redraw();                
+            }
+            catch(std::string e) {
+                fl_alert(e.c_str());
+            }
+        }
+
+        //Remove arc between selected elements
+		static void removeArcCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->removeArc();
+		}
+        
+        //Non-static real callback
+		void removeArc(){
+
+            try {
+                
+                if(PetriNet->selected.size() < 2)
+                    throw std::string("Invalid elements selected");
+
+                PetriNet->removeArc(PetriNet->selected.at(0), PetriNet->selected.at(1));
+                
+                canvas->redraw();                
+            }
+            catch(std::string e) {
+                fl_alert(e.c_str());
+            }
+        }
+
 
         //Calls PetriNets advanceSimulation method
 		static void advanceSimulationCallback( Fl_Widget* o, void* data ) {

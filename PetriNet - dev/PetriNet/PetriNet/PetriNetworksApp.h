@@ -63,6 +63,21 @@ class PetriNetworksApp {
 			}
 	    }
 
+        void addArc(IElement *source, IElement *destination){
+
+                Arcs *newArc = new Arcs(source, destination);
+                arcs->push_back(newArc);
+        }
+
+        void removeArc(IElement *source, IElement *destination){
+            for(std::vector<Arcs*>::iterator it = arcs->begin(); it != arcs->end(); ++it){
+                if( (*it)->source == source && (*it)->destination == destination ){
+                    arcs->erase(it);
+                    return;
+                }
+            }
+        }
+
 	    void start_app();
 	
 	    void stop_app();

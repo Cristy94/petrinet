@@ -60,7 +60,13 @@ void Drawable::draw(){
 
         //Draw filled shape
         fl_color(fl_rgb_color(200,200,200));
+        //If transition active
+        int nrTokens = (*it)->tokens->size();
+        if(nrTokens >= 1)
+            fl_color(fl_rgb_color(255,110,110));
         fl_rectf(x() + (*it)->position->getX() + 2, y() + (*it)->position->getY() + 2, (*it)->width - 4,(*it)->height - 4);
+
+
     }
 
     //Draw arcs
@@ -71,6 +77,9 @@ void Drawable::draw(){
         fl_line_style(FL_JOIN_MITER, 3);
         fl_line(x() + (*it)->startPosition->getX(), y() + (*it)->startPosition->getY(),
                 x() + (*it)->endPosition->getX(), y() + (*it)->endPosition->getY());
+
+        //Draw the oriented arrow
+        fl_pie(x() + (*it)->endPosition->getX() - 3, y() + (*it)->endPosition->getY() - 3, 6, 6, 0, 360);
     }
 }
 
