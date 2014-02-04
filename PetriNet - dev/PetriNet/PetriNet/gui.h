@@ -20,7 +20,8 @@ class GUI {
 		Drawable *canvas;
 
         Fl_Button *addTransitionButton, *addPlaceButton, *addArcButton;
-        Fl_Button *removeArcButton;
+        Fl_Button *removeArcButton, *removeElementButton;
+        Fl_Button *setTokensButton;
         Fl_Button *advanceSimulationButton;
         Fl_Button *saveNetworkButton, *loadNetworkButton;
 
@@ -131,6 +132,62 @@ class GUI {
                     throw std::string("Invalid elements selected");
 
                 PetriNet->removeArc(PetriNet->selected.at(0), PetriNet->selected.at(1));
+                
+                canvas->redraw();                
+            }
+            catch(std::string e) {
+                fl_alert(e.c_str());
+            }
+        }
+
+        //Remove selected element
+		static void removeElementCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->removeElement();
+		}
+        
+        //Non-static real callback
+		void removeElement(){
+
+            try {
+                
+                if(PetriNet->selected.size() < 1)
+                    throw std::string("Invalid elements selected");
+
+                PetriNet->removeElement(PetriNet->selected.back());
+                
+                canvas->redraw();                
+            }
+            catch(std::string e) {
+                fl_alert(e.c_str());
+            }
+        }
+
+
+        //Sets int number of tokens for selected element
+		static void setTokensCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->setTokens();
+		}
+        
+        //Non-static real callback
+		void setTokens(){
+             //Ask user for coordinates, convert them to int
+            const char *result = fl_input("Number", "1");
+            
+            //If user clicks cancel           
+            if(result == NULL)
+                return;
+
+            std::string answ = result;
+            
+
+            int x = atoi( answ.c_str() );
+
+            try {
+                
+                if(PetriNet->selected.size() < 1)
+                    throw std::string("Invalid elements selected");
+
+                PetriNet->setTokens(PetriNet->selected.back(), x);
                 
                 canvas->redraw();                
             }

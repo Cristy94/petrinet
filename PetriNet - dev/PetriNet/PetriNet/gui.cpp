@@ -26,9 +26,13 @@ void GUI::init(){
     		addPlaceButton          = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "Add new &place!" );
             addTransitionButton     = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 70, 280, 50, "Add new &transition!" );
             addArcButton            = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 130, 135, 50, "Add &arc!" );
+           
             removeArcButton         = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 130, 135, 50, "&Remove arc!");
+                
+            removeElementButton     = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 190, 135, 50, "Remove &element!" );            
+            setTokensButton         = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 190, 135, 50, "Set &tokens!" );            
 
-            advanceSimulationButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 190, 280, 50, "A&dvance simulation!" );            
+            advanceSimulationButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 250, 280, 50, "A&dvance simulation!" );            
             
             saveNetworkButton       = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 350 + 190, 135, 50, "&Save network!" );
             loadNetworkButton       = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 350 + 190, 135, 50, "&Load network!" );
@@ -41,6 +45,9 @@ void GUI::init(){
 	addTransitionButton->callback(addTransitionCallback, this);
     addArcButton->callback(addArcCallback, this);
     removeArcButton->callback(removeArcCallback, this);
+    removeElementButton->callback(removeElementCallback, this);
+
+    setTokensButton->callback(setTokensCallback, this);
 
     advanceSimulationButton->callback(advanceSimulationCallback, this);
 

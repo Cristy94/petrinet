@@ -51,6 +51,44 @@ int PetriNetworksApp::advanceSimulation(){
     return 0;
 }
 
+void PetriNetworksApp::removeElement(IElement *el){
+
+    //Remove all arcs 
+    bool ok;
+    do {
+    
+        ok = 0;
+        for(std::vector<Arcs*>::iterator it = arcs->begin(); it != arcs->end(); ++it){
+            if((*it)->source == el || (*it)->destination == el){
+                arcs->erase(it);
+                ok = 1;
+                break;
+            }
+        }
+
+    }
+    while ( ok == 1);
+
+    //Try to remove transition
+    for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it){
+
+        if( (*it) == el){
+            transitions->erase(it);
+            return;
+        }
+    }
+
+    //Try to remove place
+    for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it){
+
+        if( (*it) == el){
+            places->erase(it);
+            return;
+        }
+    }
+
+    delete el;
+}
 
 void PetriNetworksApp::selectElement(int x, int y){
 
@@ -85,7 +123,7 @@ void PetriNetworksApp::selectElement(int x, int y){
     }
 
     //If an element is found add it to the last 2 selected elements queue
-    if(closest != NULL && closestDistance < 100 && !closest->selected){
+    if(closest != NULL && closestDistance < 100){
         
         if(selected.size() == 2){
             selected.front()->selected = false;

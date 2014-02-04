@@ -119,10 +119,17 @@ class PetriNetworksApp {
 			this->transitions = transitions;
 		}
 
+        void setTokens(IElement *el, int nrTokens){
+            el->setNumberOfTokens(nrTokens);
+        }
+
         int advanceSimulation();
 
         //Select the element closed to the click
         void selectElement(int x, int y);
+
+        //Remove last selected element
+        void removeElement(IElement *el);
 };
 
 #endif
