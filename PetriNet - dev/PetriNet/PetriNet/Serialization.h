@@ -96,15 +96,19 @@ public:
 
 		cin >> placesSize >> transitionsSize >> arcsSize;
 
+		places->resize(placesSize+1);
+		transitions->resize(transitionsSize+1);
+		arcs->resize(arcsSize+1);
+
 		for(int i = 0; i < placesSize; ++i)
 		{
 			// position
 			cin >> x >> y;
 			cin >> tokensCount;
+			places->push_back(new Place(new Point(x, y)));
 
-			places->at(i)->position->setX(x);
-			places->at(i)->position->setY(y);
-			places->at(i)->tokens->resize(tokensCount);
+			for(int j = 0; j < tokensCount; ++j)
+				places->at(i)->tokens->push_back(new Token());
 		}
 
 		for(int i = 0; i < transitionsSize; ++i)
@@ -113,10 +117,9 @@ public:
 			cin >> x >> y;
 			cin >> tokensCount;
 
-			transitions->at(i)->position->setX(x);
-			transitions->at(i)->position->setY(y);
-			transitions->at(i)->tokens->resize(tokensCount);
-
+			transitions->push_back(new Transition(new Point(x, y)));
+			for(int j = 0; j < tokensCount; ++j)
+				transitions->at(i)->tokens->push_back(new Token());
 		}
 
 		// serialize position and tokens of every arc, we must serialize source and destination
@@ -143,8 +146,11 @@ public:
 			else
 				arcs->at(i)->destination = transitions->at(indexDestination);
 
-			arcs->at(i)->destination->tokens->resize(tokensDestination);
-			arcs->at(i)->source->tokens->resize(tokensSource);
+			for(int j = 0; j < tokensDestination; ++j)
+				arcs->at(i)->destination->tokens->push_back(new Token());
+
+			for(int j = 0; j < tokensSource; ++j)
+				arcs->at(i)->source->tokens->push_back(new Token());
 		}
 	}
 };
