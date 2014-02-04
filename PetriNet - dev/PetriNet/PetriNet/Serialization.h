@@ -10,11 +10,11 @@ class Serialization : public PetriNetworksApp
 {
 public:
 	Serialization(){
-		freopen("PetriNetworks.txt", "r", stdin);
-		freopen("PetriNetworks.txt", "w", stdout);
+
 	}
 	void saveNetwork() 
 	{
+		freopen("PetriNetworks.txt", "w", stdout);
 		cout << getPlaces()->size() << " " << getTransitions()->size() << " " << getArcs()->size() << endl;	// places, transitions, arcs
 		
 
@@ -26,12 +26,6 @@ public:
 			cout << places->at(i)->getPosition()->getY() << endl;
 
 			cout << places->at(i)->getTokenCount() << endl;
-
-			// tokens state for each place
-			for(int j = 0; j < places->at(i)->getTokenCount(); ++i)
-			{
-				cout << places->at(i)->tokens->at(j)->getState() << endl;
-			}
 		}
 
 		// serialize position and tokens of every transition
@@ -43,36 +37,54 @@ public:
 
 			cout << transitions->at(i)->getTokenCount() << endl;
 
-			// tokens state for each transition
-			for(int j = 0; j < transitions->at(i)->getTokenCount(); ++j)
-			{
-				cout << transitions->at(i)->tokens->at(j)->getState() << endl;
-			}
 		}
 
 		// serialize position and tokens of every arc, we must serialize source and destination
 		for(int i = 0; i < getArcs()->size(); ++i)
 		{
-			// position
-			cout << arcs->at(i)->source->getPosition()->getX() << endl;
-			cout << arcs->at(i)->source->getPosition()->getY() << endl;
+			bool isPlaceSource = false;
+			bool isPlaceDestination = false;
+			for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it)
+			{
+				if(*it == arcs->at(i)->source)
+				{
+					cout << "P " << i << endl;
+					isPlaceSource = true;
+				}
+			}
+			if(!isPlaceSource)
+			{
+				for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it)
+				{
+					if(*it == arcs->at(i)->source)
+					{
+						cout << "T " << i << endl;
+					}
+				}
+			}
 
-			cout << arcs->at(i)->destination->getPosition()->getX() << endl;
-			cout << arcs->at(i)->destination->getPosition()->getY() << endl;
+			for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it)
+			{
+				if(*it == arcs->at(i)->destination)
+				{
+					cout << "P " << i << endl;
+					isPlaceDestination = true;
+				}
+			}
+			if(!isPlaceDestination)
+			{
+				for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it)
+				{
+					if(*it == arcs->at(i)->destination)
+					{
+						cout << "T " << i << endl;
+					}
+				}
+			}
 
 			cout << arcs->at(i)->destination->getTokenCount() << endl;
 			cout << arcs->at(i)->source->getTokenCount() << endl;
 
-			// tokens state for each arc(source and destination)	
-			for(int j = 0; j < arcs->at(i)->source->getTokenCount(); ++j)
-			{
-				cout << arcs->at(i)->source->tokens->at(j)->getState() << endl;
-			}
-
-			for(int j = 0; j < arcs->at(i)->destination->getTokenCount(); ++j)
-			{
-				cout << arcs->at(i)->destination->tokens->at(j)->getState() << endl;
-			}
 		}
 	}
 
@@ -80,6 +92,7 @@ public:
 	{
 		int arcsSize, placesSize, transitionsSize, x, y, state, tokensCount, xSource, ySource, xDestination, yDestination, tokensSource, tokensDestination;
 		bool stateSource, stateDestination;
+		freopen("PetriNetworks.txt", "r", stdin);
 
 		cin >> placesSize >> transitionsSize >> arcsSize;
 
@@ -91,13 +104,7 @@ public:
 
 			places->at(i)->position->setX(x);
 			places->at(i)->position->setY(y);
-
-			// tokens state for each place
-			for(int j = 0; j < tokensCount; ++i)
-			{
-				cin >> state;
-				places->at(i)->tokens->at(j)->setState(state);
-			}
+			places->at(i)->tokens->resize(tokensCount);
 		}
 
 		for(int i = 0; i < transitionsSize; ++i)
@@ -108,45 +115,36 @@ public:
 
 			transitions->at(i)->position->setX(x);
 			transitions->at(i)->position->setY(y);
+			transitions->at(i)->tokens->resize(tokensCount);
 
-			// tokens state for each transitions
-			for(int j = 0; j < tokensCount; ++j)
-			{
-				cin >> state;
-				transitions->at(i)->tokens->at(j)->setState(state);
-			}
 		}
 
 		// serialize position and tokens of every arc, we must serialize source and destination
 		for(int i = 0; i < arcsSize; ++i)
 		{
-			// position
-			cin >> xSource >> ySource >> xDestination >> yDestination;
-			cin >> tokensDestination >> tokensSource;
-			// position
-			arcs->at(i)->source->position->setX(xSource);
-			arcs->at(i)->source->position->setY(ySource);
+			char sourceType, destinationType;
+			int indexSource, indexDestination;
 
-			arcs->at(i)->destination->position->setX(xDestination);
-			arcs->at(i)->destination->position->setY(yDestination);
+			cin >> sourceType;
+			cin >> indexSource;
+			cin >> destinationType;
+			cin >> indexDestination;
+			cin >> tokensDestination;
+			cin >> tokensSource;
+
+			// position
+			if(sourceType == 'P')
+				arcs->at(i)->source = places->at(indexSource);
+			else
+				arcs->at(i)->source = transitions->at(indexSource);
+
+			if(destinationType == 'P')
+				arcs->at(i)->destination = places->at(indexDestination);
+			else
+				arcs->at(i)->destination = transitions->at(indexDestination);
 
 			arcs->at(i)->destination->tokens->resize(tokensDestination);
 			arcs->at(i)->source->tokens->resize(tokensSource);
-
-			// tokens state for each arc(source and destination)	
-			for(int j = 0; j < tokensSource; ++j)
-			{
-				cin >> stateSource;
-
-				arcs->at(i)->source->tokens->at(j)->setState(stateSource);
-			}
-
-			for(int j = 0; j < tokensDestination; ++j)
-			{
-				cin >> stateDestination;
-
-				arcs->at(i)->destination->tokens->at(j)->setState(stateDestination);
-			}
 		}
 	}
 };
