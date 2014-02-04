@@ -12,6 +12,26 @@ PetriNetworksApp::PetriNetworksApp(){
 //Returns 0 if simulation has ended
 int PetriNetworksApp::advanceSimulation(){
 
+    //First try to trigger a transition
+    for(std::vector<Arcs*>::iterator it = arcs->begin(); it != arcs->end(); ++it){
+
+        if(Transition* b = dynamic_cast< Transition* >((*it)->source))
+            if((*it)->source->hasTokens()){
+
+                (*it)->source->removeToken();
+                
+                //Add a token to every destination
+                for(std::vector<Arcs*>::iterator d = arcs->begin(); d != arcs->end(); ++d){
+                    if((*d)->source == (*it)->source){
+                        (*d)->destination->addToken();
+                        (*d)->destination->makeNthTokenActive((*d)->destination->getTokenCount());
+                    }
+                }
+
+                return 1;
+            }
+    }
+
     //Iterate through all arcs, move a token if possible and stop
     for(std::vector<Arcs*>::iterator it = arcs->begin(); it != arcs->end(); ++it){
 
@@ -74,5 +94,12 @@ void PetriNetworksApp::selectElement(int x, int y){
 
         closest->selected = true;
         selected.push_back(closest);
+    }
+    //Else clear the queue
+    else {
+        while(!selected.empty()){
+             selected.front()->selected = false;
+            selected.pop_front();
+        }
     }
 }
