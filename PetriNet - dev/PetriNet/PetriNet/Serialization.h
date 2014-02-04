@@ -6,7 +6,7 @@
 #include <string>
 
 
-class Serialization : PetriNetworksApp
+class Serialization : public PetriNetworksApp
 {
 public:
 	Serialization(){

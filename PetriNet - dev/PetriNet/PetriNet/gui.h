@@ -8,7 +8,7 @@
 #include <string>
 
 #include "drawable.h"
-#include "PetriNetworksApp.h"
+#include "Serialization.h"
 
 
 //Manages the creation, display and editing of FLTK elements
@@ -19,13 +19,12 @@ class GUI {
         Fl_Window *win;
 		Drawable *canvas;
 
-        Fl_Button *addTransitionButton;
-        Fl_Button *addPlaceButton;
-        Fl_Button *addArcButton;
+        Fl_Button *addTransitionButton, *addPlaceButton, *addArcButton;
         Fl_Button *advanceSimulationButton;
+        Fl_Button *saveNetworkButton, *loadNetworkButton;
 
         Fl_Group *sidebar;
-        PetriNetworksApp *PetriNet;
+        Serialization *PetriNet;
 
         //Adds a new transition to the network
 		static void addTransitionCallback( Fl_Widget* o, void* data ) {
@@ -85,7 +84,23 @@ class GUI {
             canvas->redraw();
         }
         
+        //Save the network to a text file
+        static void saveNetworkCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->saveNetwork();
+		}
 
+        void saveNetwork(){
+            PetriNet->saveNetwork();
+        }
+        
+        //Load the network from a text file
+        static void loadNetworkCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->loadNetwork();
+		}
+
+        void loadNetwork(){
+            PetriNet->loadNetwork();
+        }
 
 	public:
 

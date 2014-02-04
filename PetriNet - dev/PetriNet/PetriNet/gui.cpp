@@ -3,7 +3,7 @@
 //Constructor
 GUI::GUI(){
             
-    PetriNet =  new PetriNetworksApp();
+    PetriNet =  new Serialization();
 
     //Add some elements, just for testing
     int p1 = PetriNet->addPlace(200,200);
@@ -23,9 +23,13 @@ void GUI::init(){
         Point sidebarPos(0,0);
         sidebar = new  Fl_Group (sidebarPos.getX(),sidebarPos.getY(),300,600);
                     
-    		addPlaceButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "Add new &place!" );
-            addTransitionButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 70, 280, 50, "Add new &transition!" );
-            advanceSimulationButton =  new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 130, 280, 50, "Advance &simulation!" );
+    		addPlaceButton          = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 10, 280, 50, "Add new &place!" );
+            addTransitionButton     = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 70, 280, 50, "Add new &transition!" );
+            advanceSimulationButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 130, 280, 50, "&Advance simulation!" );
+            
+            
+            saveNetworkButton       = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 350 + 190, 135, 50, "&Save network!" );
+            loadNetworkButton       = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 350 + 190, 135, 50, "&Load network!" );
 
             sidebar->end();
 	win->end();
@@ -34,6 +38,8 @@ void GUI::init(){
     addPlaceButton->callback(addPlaceCallback, this);
 	addTransitionButton->callback(addTransitionCallback, this);
     advanceSimulationButton->callback(advanceSimulationCallback, this);
+    saveNetworkButton->callback(saveNetworkCallback, this);
+    loadNetworkButton->callback(loadNetworkCallback, this);
 
 
     //Styling
