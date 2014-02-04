@@ -1,6 +1,8 @@
 #ifndef __PETRINETWORKS_H_
 #define __PETRINETWORKS_H_
 
+#include <queue>
+
 #include "IElement.h"
 #include "Arc.h"
 #include "Place.h"
@@ -11,6 +13,8 @@ class PetriNetworksApp {
 	    vector<Arcs*> *arcs;
 	    vector<Place*> *places;
 	    vector<Transition*> *transitions;
+
+        std::deque <IElement*> selected;
 
 	    int step_count;
 
@@ -101,6 +105,9 @@ class PetriNetworksApp {
 		}
 
         int advanceSimulation();
+
+        //Select the element closed to the click
+        void selectElement(int x, int y);
 };
 
 #endif

@@ -26,8 +26,53 @@ int PetriNetworksApp::advanceSimulation(){
 
             return 1;
         }
-
     }
 
     return 0;
+}
+
+
+void PetriNetworksApp::selectElement(int x, int y){
+
+    //Clicked element
+    IElement *closest = NULL;
+    double closestDistance = 100000.00;
+
+    //Search for places
+    for(std::vector<Place*>::iterator it = places->begin(); it != places->end(); ++it){
+
+        Point linearDistance = Point(x - (*it)->centerPosition()->getX(), y - (*it)->centerPosition()->getY());
+        
+        double distance = sqrt(linearDistance.getX() * linearDistance.getX() + linearDistance.getY() * linearDistance.getY());
+
+        if(distance < closestDistance){
+            closestDistance = distance;
+            closest = *it;
+        }
+    }
+
+    //Search for transitions
+    for(std::vector<Transition*>::iterator it = transitions->begin(); it != transitions->end(); ++it){
+
+        Point linearDistance = Point(x - (*it)->centerPosition()->getX(), y - (*it)->centerPosition()->getY());
+        
+        double distance = sqrt(linearDistance.getX() * linearDistance.getX() + linearDistance.getY() * linearDistance.getY());
+
+        if(distance < closestDistance){
+            closestDistance = distance;
+            closest = *it;
+        }
+    }
+
+    //If an element is found add it to the last 2 selected elements queue
+    if(closest != NULL && closestDistance < 100 && !closest->selected){
+        
+        if(selected.size() == 2){
+            selected.front()->selected = false;
+            selected.pop_front();
+        }
+
+        closest->selected = true;
+        selected.push_back(closest);
+    }
 }

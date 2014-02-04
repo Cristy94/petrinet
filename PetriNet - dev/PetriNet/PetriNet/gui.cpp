@@ -41,7 +41,6 @@ void GUI::init(){
     saveNetworkButton->callback(saveNetworkCallback, this);
     loadNetworkButton->callback(loadNetworkCallback, this);
 
-
     //Styling
     canvas->box(FL_DOWN_BOX);
     sidebar->box(FL_UP_BOX);

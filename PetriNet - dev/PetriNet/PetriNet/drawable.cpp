@@ -16,6 +16,9 @@ void Drawable::draw(){
         
         //Draw stroke
         fl_color(fl_rgb_color(110,110,110));
+        //Red stroke color if element is selected
+        if( (*it)->selected )
+            fl_color(fl_rgb_color(255,110,110));
         fl_pie(x() + (*it)->position->getX(), y() + (*it)->position->getY(), (*it)->radius,(*it)->radius, 0, 360);
 
         //Draw filled shape
@@ -50,6 +53,9 @@ void Drawable::draw(){
         
         //Draw stroke
         fl_color(fl_rgb_color(110,110,110));
+        //Red stroke color if element is selected
+        if( (*it)->selected )
+            fl_color(fl_rgb_color(255,110,110));
         fl_rectf(x() + (*it)->position->getX(), y() + (*it)->position->getY(), (*it)->width,(*it)->height);
 
         //Draw filled shape
@@ -66,4 +72,19 @@ void Drawable::draw(){
         fl_line(x() + (*it)->startPosition->getX(), y() + (*it)->startPosition->getY(),
                 x() + (*it)->endPosition->getX(), y() + (*it)->endPosition->getY());
     }
+}
+
+//Bind click events
+int Drawable::handle(int event){
+    switch(event){
+
+        case FL_RELEASE:
+            PetriNet->selectElement(Fl::event_x() - x() ,Fl::event_y() - y());   
+        break;
+        default:
+            return Fl_Box::handle(event);
+
+    }
+
+    redraw();
 }

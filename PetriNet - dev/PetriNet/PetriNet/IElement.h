@@ -15,9 +15,13 @@ class IElement {
         vector<Token*> *tokens;	
 
     public:
+
+        bool selected;
+
 	    IElement()
 	    {
 		    position = new Point();
+            selected = 0;
 	    }
 
 	   	void setNumberOfTokens(int number)

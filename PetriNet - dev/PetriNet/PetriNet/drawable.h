@@ -28,6 +28,7 @@ class Drawable : public Fl_Box{
                     :Fl_Box(X,Y,W,H,L), PetriNet(Network){}
 
 		void draw();
+        int handle(int event);
 };
 
 #endif
