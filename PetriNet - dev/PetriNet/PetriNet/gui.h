@@ -23,6 +23,7 @@ class GUI {
         Fl_Button *removeArcButton, *removeElementButton;
         Fl_Button *setTokensButton;
         Fl_Button *advanceSimulationButton;
+        Fl_Button *startSimulationButton, *stopSimulationButton;
         Fl_Button *saveNetworkButton, *loadNetworkButton;
 
         Fl_Group *sidebar;
@@ -206,7 +207,31 @@ class GUI {
             PetriNet->advanceSimulation();
             canvas->redraw();
         }
+
+        //Auto advance every 0.5s
+		static void startSimulationCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->startSimulation();
+		}
+
+        static void startSimulationTimeout(void* data){
+            ((GUI*) data)-> startSimulation();
+        }
+
+        void startSimulation(){
+            PetriNet->advanceSimulation();
+            canvas->redraw();
+            Fl::add_timeout(0.5, startSimulationTimeout, this);
+        }
         
+        //Stop autoplay
+        static void stopSimulationCallback( Fl_Widget* o, void* data ) {
+			((GUI*) data)->stopSimulation();
+		}
+
+        void stopSimulation(){
+            Fl::remove_timeout(startSimulationTimeout);
+        }
+
         //Save the network to a text file
         static void saveNetworkCallback( Fl_Widget* o, void* data ) {
 			((GUI*) data)->saveNetwork();

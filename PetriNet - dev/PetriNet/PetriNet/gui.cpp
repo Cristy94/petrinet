@@ -33,6 +33,9 @@ void GUI::init(){
             setTokensButton         = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 190, 135, 50, "Set &tokens!" );            
 
             advanceSimulationButton = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 250, 280, 50, "A&dvance simulation!" );            
+
+            startSimulationButton   = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 310, 135, 50, "Start sim&ulation!" );            
+            stopSimulationButton    = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 310, 135, 50, "Stop simula&tion!" );            
             
             saveNetworkButton       = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 350 + 190, 135, 50, "&Save network!" );
             loadNetworkButton       = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 350 + 190, 135, 50, "&Load network!" );
@@ -46,6 +49,8 @@ void GUI::init(){
     addArcButton->callback(addArcCallback, this);
     removeArcButton->callback(removeArcCallback, this);
     removeElementButton->callback(removeElementCallback, this);
+    startSimulationButton->callback(startSimulationCallback, this);
+    stopSimulationButton->callback(stopSimulationCallback, this);
 
     setTokensButton->callback(setTokensCallback, this);
 
@@ -65,5 +70,4 @@ void GUI::init(){
 	win->show();
 					
 	Fl::run();
-
 }
