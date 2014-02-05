@@ -141,3 +141,13 @@ void PetriNetworksApp::selectElement(int x, int y){
         }
     }
 }
+
+void PetriNetworksApp::moveSelected(int x, int y){
+
+    IElement *last = selected.back();
+
+    if(last != NULL){
+
+        last->setPosition(x, y);
+    }
+}

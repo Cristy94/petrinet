@@ -75,11 +75,11 @@ void Drawable::draw(){
         //Draw the line
         fl_color(fl_rgb_color(110,110,110));
         fl_line_style(FL_JOIN_MITER, 3);
-        fl_line(x() + (*it)->startPosition->getX(), y() + (*it)->startPosition->getY(),
-                x() + (*it)->endPosition->getX(), y() + (*it)->endPosition->getY());
+        fl_line(x() + (*it)->startPosition()->getX(), y() + (*it)->startPosition()->getY(),
+                x() + (*it)->endPosition()->getX(), y() + (*it)->endPosition()->getY());
 
         //Draw the oriented arrow
-        fl_pie(x() + (*it)->endPosition->getX() - 3, y() + (*it)->endPosition->getY() - 3, 6, 6, 0, 360);
+        fl_pie(x() + (*it)->endPosition()->getX() - 3, y() + (*it)->endPosition()->getY() - 3, 6, 6, 0, 360);
     }
 }
 
@@ -87,8 +87,23 @@ void Drawable::draw(){
 int Drawable::handle(int event){
     switch(event){
 
-        case FL_RELEASE:
+        case FL_PUSH:
             PetriNet->selectElement(Fl::event_x() - x() ,Fl::event_y() - y());   
+               if(Fl::event_button() == FL_RIGHT_MOUSE){
+                mouseDown = true;
+            }
+        break;
+
+        case FL_RELEASE:            
+            if(Fl::event_button() == FL_RIGHT_MOUSE){
+                mouseDown = false;
+            }
+        break;
+
+        case FL_DRAG:
+            if(mouseDown){
+                PetriNet->moveSelected(Fl::event_x() - x() ,Fl::event_y() - y());  
+            }
         break;
         default:
             return Fl_Box::handle(event);

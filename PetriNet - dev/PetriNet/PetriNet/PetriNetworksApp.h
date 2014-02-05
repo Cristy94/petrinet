@@ -130,6 +130,9 @@ class PetriNetworksApp {
 
         //Remove last selected element
         void removeElement(IElement *el);
+
+        //Move last selected element
+        void moveSelected(int x, int y);
 };
 
 #endif

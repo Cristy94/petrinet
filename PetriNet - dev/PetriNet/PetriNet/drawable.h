@@ -20,12 +20,15 @@ class Drawable : public Fl_Box{
 
 	private:
         PetriNetworksApp* PetriNet;
+        bool mouseDown;
 
 	public:
 
         //Constructor. We also need a pointer to the network
 		Drawable(PetriNetworksApp *Network, int X,int Y,int W,int H,const char*L=0)
-                    :Fl_Box(X,Y,W,H,L), PetriNet(Network){}
+                    :Fl_Box(X,Y,W,H,L), PetriNet(Network){
+            mouseDown = false;
+        }
 
 		void draw();
         int handle(int event);
