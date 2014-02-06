@@ -37,6 +37,7 @@ void GUI::init(){
             startSimulationButton   = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 310, 135, 50, "Start sim&ulation!" );            
             stopSimulationButton    = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 310, 135, 50, "Stop simula&tion!" );            
             
+            help                    = new Fl_Text_Display(sidebarPos.getX()+ 10, sidebarPos.getY() + 400, 280, 90, "Help" );
             saveNetworkButton       = new Fl_Button (sidebarPos.getX()+ 10, sidebarPos.getY() + 350 + 190, 135, 50, "&Save network!" );
             loadNetworkButton       = new Fl_Button (sidebarPos.getX()+ 155, sidebarPos.getY() + 350 + 190, 135, 50, "&Load network!" );
 
@@ -59,7 +60,17 @@ void GUI::init(){
     saveNetworkButton->callback(saveNetworkCallback, this);
     loadNetworkButton->callback(loadNetworkCallback, this);
 
+    //Help messages
+    helpBuff = new Fl_Text_Buffer();
+    help->buffer(helpBuff);
+
+    helpBuff->text("\n-> Click an element to select it\n"
+                   "-> Right-click + drag to move an element\n"
+                   "-> An arc can be added between last two \nselected elements");
+
     //Styling
+    help->box(FL_FLAT_BOX);
+    help->color(FL_GRAY);
     canvas->box(FL_DOWN_BOX);
     sidebar->box(FL_UP_BOX);
 	canvas->color(FL_WHITE);

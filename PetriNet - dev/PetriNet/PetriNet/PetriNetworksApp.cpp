@@ -144,10 +144,9 @@ void PetriNetworksApp::selectElement(int x, int y){
 
 void PetriNetworksApp::moveSelected(int x, int y){
 
-    IElement *last = selected.back();
+    if(!selected.empty()){
 
-    if(last != NULL){
-
+        IElement *last = selected.back();
         last->setPosition(x, y);
     }
 }

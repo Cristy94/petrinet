@@ -26,6 +26,9 @@ class GUI {
         Fl_Button *startSimulationButton, *stopSimulationButton;
         Fl_Button *saveNetworkButton, *loadNetworkButton;
 
+        Fl_Text_Buffer *helpBuff;
+        Fl_Text_Display *help;
+
         Fl_Group *sidebar;
         Serialization *PetriNet;
 

@@ -12,6 +12,7 @@
 #include <FL/Fl_Browser.H>
 #include <FL/fl_ask.H>
 #include <FL/Fl_Timer.H>
+#include <FL/Fl_Text_Display.H>
 
 #include "PetriNetworksApp.h"
 
